@@ -1,0 +1,177 @@
+secret_number =9
+attempt =1
+
+while attempt <=3:
+    number = input("Guess?: ")
+    attempt += 1
+    if int(number) == secret_number:
+        print("Correct guess")
+        break
+else:
+    print("You lost")
+    -----------Car game ------
+    if enter.upper() == "HELP":
+    print('''start - to start the car
+stop - to stop the car
+quit - to exit
+    '''
+    )
+    new_input= input(">")
+    if new_input == start:
+        print("Car started ready to go")
+    elif new_input == stop:
+        print("Car have stopped")
+    elif new_input == quit:
+        print("Operation terminated")
+    else:
+        print("Try with correct command")
+
+
+else:
+    print("I don't understand that")
+
+    -----------Using while loop simulation of start/stop if repeated
+    command = ""
+count_start =False
+
+while True:
+    command=input(">")
+    if command.lower() == "help":
+        print('''
+start - to start the car
+stop - to stop the car
+quit - to exit
+            ''')
+    elif command.lower() == "start":
+
+
+        if count_start ==True:
+            print("Car is already started")
+        else:
+            count_start=True
+            print("Car has started")
+
+    elif command.lower() =="stop":
+
+        if not count_start :
+            print("Car is already stopped")
+        else:
+            count_start=False
+            print("Car has stopped")
+
+    elif command.lower() == "quit":
+        break
+    else:
+        print("I don't understand")
+-----------------emoji convertor
+message = input(">")
+words = message.split(" ")
+emoji_list = {
+    ":)" : "🙂",
+    ":(" : "😞",
+    ":O" : "🥸",
+    ":P" : "😜"
+}
+output= ""
+for ch in words:
+    output +=emoji_list.get(ch , ch) + " "
+
+print(output)
+
+-----------return function ----
+def square (number):
+    return number*number
+result = square(12)
+print(result)
+-----------emoji translator with function
+message = input(">")
+def emoji_translator(message):
+    words= message.split(" ")
+    emoji_list = {
+    ":)" : "🙂",
+    ":(" : "😞",
+    ":O" : "🥸",
+    ":P" : "😜"
+    }
+    output= ""
+    for ch in words:
+        output += emoji_list.get(ch, ch) + " "
+    return output
+
+result =emoji_translator(message)
+print(result)
+----------Class --------------
+class Point:
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+    def draw(self):
+        print("Draw")
+    def move(self):
+        print("move")
+
+
+point1 = Point(10,20)
+print(point1.x , point1.y)
+------------
+class Person:
+    def __init__(self,name):
+        self.name=name
+    def talk(self):
+        print(f"Hi , I am  {self.name}")
+
+Radha=Person("Radha")
+Radha.talk()
+-------------random number gen-----
+import random
+class Dice:
+    def roll(self):
+        number1 = random.randint(1, 6)
+        number2=random.randint(1,7)
+        return number1,number2
+
+Dice1=Dice()
+print(Dice1.roll())
+-----------Excel project
+import openpyxl as xl
+from openpyxl.chart import BarChart,Reference
+
+
+wb=xl.load_workbook("transactions.xlsx")
+sheet = wb["Sheet1"]
+cell=sheet.cell(1,1)
+
+for row in range(2,sheet.max_row+1):
+    cell =sheet.cell(row,3)
+    corrected_price = cell.value*0.9
+    corrected_price_cell=sheet.cell(row,4)
+    corrected_price_cell.value=corrected_price
+
+values =Reference(sheet,
+          min_row=2,
+          max_row=sheet.max_row,
+          min_col=4,
+          max_col=4)
+chart=BarChart()
+chart.add_data(values)
+sheet.add_chart(chart,'e2')
+wb.save("transactions2.xlsx")
+
+-------ML project code-----
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+music_data = pd.read_csv("music.csv")
+X=music_data.drop(columns= ["genre"])
+y=music_data["genre"]
+X_train,X_test,y_train,y_test =train_test_split(X,y,test_size =0.2)
+
+model = DecisionTreeClassifier()
+model.fit(X_train,y_train)
+predictions = model.predict(X_test)
+predictions
+
+score = accuracy_score(y_test,predictions)
+score
